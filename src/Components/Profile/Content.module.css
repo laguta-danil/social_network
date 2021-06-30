@@ -1,0 +1,17 @@
+.text {
+color: deeppink;
+
+}
+
+.content {
+    grid-area: c;
+    background-color: lightyellow;
+}
+
+.content img {
+    width: 500px;
+}
+
+.t {
+    background-color: ivory;
+}

@@ -1,0 +1,18 @@
+.text {
+color: deeppink;
+
+}
+
+.content {
+    grid-area: c;
+    background-color: lightyellow;
+}
+
+.content img {
+    width: 500px;
+}
+
+.t {
+    padding: 10px;
+
+}
