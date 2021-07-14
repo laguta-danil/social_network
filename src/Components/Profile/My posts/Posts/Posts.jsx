@@ -9,7 +9,7 @@ const Posts = (props) => {
                 <img src='https://topmsg.ru/wp-content/uploads/muzhchina-v-shlyape-s-sigaretoj.jpg'/>
                 { props.message }
                 <div>
-                    Likes {props.likesCounter}
+                    Likes {props.likes}
                 </div>
             </div>
 
