@@ -7,7 +7,7 @@ const Posts = (props) => {
         <div className={classes.t}>
             <div>
                 <img src='https://topmsg.ru/wp-content/uploads/muzhchina-v-shlyape-s-sigaretoj.jpg'/>
-                { props.message }
+                { props.txt }
                 <div>
                     Likes {props.likes}
                 </div>

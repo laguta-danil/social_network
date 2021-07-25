@@ -1,7 +1,19 @@
 import React from "react";
 import './ProfileInfo.css'
 
+
+
 const ProfileInfo = (props) => {
+
+
+    let newPostElement = React.createRef();
+
+    let AddPosts = () => {
+        let text = newPostElement.current.value;
+        props.AddPosts(text);
+    }
+
+
     return (
         <div>
             <div>
@@ -12,12 +24,10 @@ const ProfileInfo = (props) => {
                 <div className='totalp'>
                     My posts
                 </div>
-                <div >
-                    <textarea> Ублюдок пиши тут</textarea>
-                </div>
                 <div>
-                    <button> New posts</button>
+                    <textarea ref={newPostElement}/>
                 </div>
+                <button onClick={AddPosts}> Add posts</button>
             </div>
         </div>)
 }

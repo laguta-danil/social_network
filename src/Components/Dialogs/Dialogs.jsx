@@ -30,17 +30,22 @@ const Ava = (props) => {
     )
 }
 
+let newDialogElement = React.createRef();
+
+let AddChat = () => {
+    let text = newDialogElement.current.value;
+    alert(text);
+}
+
 
 const Dialogs = (props) => {
 
-
-
-    let dialogElements = props.Data.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id} ava={dialogs.ava}/>);
+    let dialogElements = props.Data.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
+                                                                            ava={dialogs.ava}/>);
 
     let messageElements = props.Data.MessageData.map(m => <Messege message={m.message} id={m.id}/>);
-    ;
 
-        return (
+    return (
         <div className={classes.dialogs}>
             <div className={classes.mess}>
                 {dialogElements}
@@ -48,8 +53,11 @@ const Dialogs = (props) => {
             <div className={classes.mess}>
                 {messageElements}
             </div>
+            <div>
+                <textarea ref={newDialogElement}/>
+            </div>
+            <button onClick={AddChat}> Send a message</button>
         </div>
     )
 }
-
 export default Dialogs;
