@@ -2,7 +2,6 @@ import React from "react";
 import './ProfileInfo.css'
 
 
-
 const ProfileInfo = (props) => {
 
 
@@ -11,6 +10,11 @@ const ProfileInfo = (props) => {
     let AddPosts = () => {
         let text = newPostElement.current.value;
         props.AddPosts(text);
+    }
+
+    let onPostChange = () => {
+        let updateText = newPostElement.current.value;
+        props.updatePostText(updateText);
     }
 
 
@@ -25,7 +29,7 @@ const ProfileInfo = (props) => {
                     My posts
                 </div>
                 <div>
-                    <textarea ref={newPostElement}/>
+                    <textarea onChange={onPostChange} ref={newPostElement} value={props.Data.updateText}/>
                 </div>
                 <button onClick={AddPosts}> Add posts</button>
             </div>
