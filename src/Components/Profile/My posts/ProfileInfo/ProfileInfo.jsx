@@ -8,13 +8,11 @@ const ProfileInfo = (props) => {
     let newPostElement = React.createRef();
 
     let AddPosts = () => {
-        let text = newPostElement.current.value;
-        props.AddPosts(text);
+        props.dispatch({type: 'ADD-POST'});
     }
-
     let onPostChange = () => {
-        let updateText = newPostElement.current.value;
-        props.updatePostText(updateText);
+        let Text = newPostElement.current.value;
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newText: Text});
     }
 
 
@@ -29,9 +27,9 @@ const ProfileInfo = (props) => {
                     My posts
                 </div>
                 <div>
-                    <textarea onChange={onPostChange} ref={newPostElement} value={props.Data.updateText}/>
+                    <textarea onChange={ onPostChange } ref={newPostElement} value={props.Data.updateText}/>
                 </div>
-                <button onClick={AddPosts}> Add posts</button>
+                <button onClick={ AddPosts }> Add posts</button>
             </div>
         </div>)
 }
