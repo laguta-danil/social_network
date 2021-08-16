@@ -1,11 +1,10 @@
 
 .dialogs {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr 2fr;
     padding: 5px;
     grid-template-areas:
-    "a d m";
-
+    "a d";
 }
 
 .dialogs {
@@ -27,6 +26,11 @@ padding: 5px;
     border-top-right-radius: 10px;
 }
 
+.text {
+    height: 400px;
+    width: 500px;
+
+}
 
 
 .img {

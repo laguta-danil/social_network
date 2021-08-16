@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
+import {sendMessageCreator, updateMessageCreator} from "../../redux/State";
 
 
 const DialogsItem = (props) => {
@@ -11,7 +12,6 @@ const DialogsItem = (props) => {
     )
 
 }
-
 const Messege = (props) => {
     return (
         <div className={classes.messages}>
@@ -20,7 +20,6 @@ const Messege = (props) => {
 
     )
 }
-
 const Ava = (props) => {
     return (
         <div className={classes.img}>
@@ -30,20 +29,28 @@ const Ava = (props) => {
     )
 }
 
+
+
 let newDialogElement = React.createRef();
-
-let AddChat = () => {
-    let text = newDialogElement.current.value;
-    alert(text);
-}
-
 
 const Dialogs = (props) => {
 
+
+    // let Data = props.store.getState().dialogsPage
     let dialogElements = props.Data.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
                                                                             ava={dialogs.ava}/>);
-
     let messageElements = props.Data.MessageData.map(m => <Messege message={m.message} id={m.id}/>);
+    let NewMessageBody = props.Data.newMessageBody;
+
+    let AddChat = () => {
+        props.store.dispatch(sendMessageCreator())
+    }
+
+    let onNewMessageChange = (e) => {
+        let body = e.target.value;
+        props.store.dispatch(updateMessageCreator(body))
+    }
+
 
     return (
         <div className={classes.dialogs}>
@@ -53,8 +60,9 @@ const Dialogs = (props) => {
             <div className={classes.mess}>
                 {messageElements}
             </div>
-            <div>
-                <textarea ref={newDialogElement}/>
+            <div className={classes.text}>
+                <textarea ref={newDialogElement} value={NewMessageBody} onChange={onNewMessageChange} cols="100" rows="25"
+                          placeholder="Enter your message!"></textarea>
             </div>
             <button onClick={AddChat}> Send a message</button>
         </div>
