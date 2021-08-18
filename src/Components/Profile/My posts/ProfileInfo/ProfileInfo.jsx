@@ -1,6 +1,6 @@
 import React from "react";
 import './ProfileInfo.css'
-import {addPostActionCreator, updateNewPostTextActionCreactor} from "../../../../redux/State";
+import {addPostActionCreator, updateNewPostTextActionCreactor} from "../../../../redux/profile-reducer";
 
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import {sendMessageCreator, updateMessageCreator} from "../../redux/State";
+import {sendMessageCreator, updateMessageCreator} from "../../redux/dialogs-reducer";
 
 
 const DialogsItem = (props) => {
@@ -12,7 +12,7 @@ const DialogsItem = (props) => {
     )
 
 }
-const Messege = (props) => {
+const Message = (props) => {
     return (
         <div className={classes.messages}>
             <NavLink to='/dialogs'> {props.message}</NavLink>
@@ -39,7 +39,7 @@ const Dialogs = (props) => {
     // let Data = props.store.getState().dialogsPage
     let dialogElements = props.Data.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
                                                                             ava={dialogs.ava}/>);
-    let messageElements = props.Data.MessageData.map(m => <Messege message={m.message} id={m.id}/>);
+    let messageElements = props.Data.MessageData.map(m => <Message message={m.message} id={m.id}/>);
     let NewMessageBody = props.Data.newMessageBody;
 
     let AddChat = () => {
@@ -62,7 +62,7 @@ const Dialogs = (props) => {
             </div>
             <div className={classes.text}>
                 <textarea ref={newDialogElement} value={NewMessageBody} onChange={onNewMessageChange} cols="100" rows="25"
-                          placeholder="Enter your message!"></textarea>
+    placeholder="Enter your message!"/>
             </div>
             <button onClick={AddChat}> Send a message</button>
         </div>

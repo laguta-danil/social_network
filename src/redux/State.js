@@ -1,9 +1,6 @@
-import {findAllByDisplayValue} from "@testing-library/react";
-
-const addPost = 'ADD-POST';
-const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
-const updateMessageBody = 'UPDATE-MESSAGE-BODY';
-const sendMessage = '';
+import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
+import sidebarReducer from "./sidebar-reducer";
 
 let store = {
     _state: {
@@ -48,39 +45,35 @@ let store = {
     },
 
     dispatch(action) {
-        if (action.type === addPost) {
-            // this._AddPosts();
-            let newPost = {
-                id: 5,
-                txt: this._state.profilePage.updateText,
-                likesCount: 0,
-            };
-            this._state.profilePage.postData.push(newPost);
-            this._state.profilePage.updateText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === updateNewPostText) {
-            // this._updatePostText(action.newText);
-            this._state.profilePage.updateText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === updateMessageBody) {
-            this._state.dialogsPage.newMessageBody = action.messageBody ;
-            this._callSubscriber(this._state)
-        }else if (action.type === sendMessage) {
-            let body = this._state.dialogsPage.newMessageBody;
-            this._state.dialogsPage.newMessageBody = '';
-            this._state.dialogsPage.MessageData.push({id: 6, message: body });
-            this._callSubscriber(this._state)
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+        this._callSubscriber(this._state)
+
+        // if (action.type === addPost) {
+        //     let newPost = {
+        //         id: 5,
+        //         txt: this._state.profilePage.updateText,
+        //         likesCount: 0,
+        //     };
+        //     this._state.profilePage.postData.push(newPost);
+        //     this._state.profilePage.updateText = '';
+        //     this._callSubscriber(this._state);
+        // } else if (action.type === updateNewPostText) {
+        //     this._state.profilePage.updateText = action.newText;
+        //     this._callSubscriber(this._state);
+        //  if (action.type === updateMessageBody) {
+        //     this._state.dialogsPage.newMessageBody = action.messageBody ;
+        //     this._callSubscriber(this._state)
+        // }else if (action.type === sendMessage) {
+        //     let body = this._state.dialogsPage.newMessageBody;
+        //     this._state.dialogsPage.newMessageBody = '';
+        //     this._state.dialogsPage.MessageData.push({id: 6, message: body });
+        //     this._callSubscriber(this._state)
+        // }
 
     }
 }
-
-
-export const addPostActionCreator = () => ({ type: addPost})
-export const updateNewPostTextActionCreactor = (Text) => ({ type: updateNewPostText, newText: Text });
-
-export const sendMessageCreator = () => ({ type: sendMessage });
-export const updateMessageCreator = (body) => ({ type: updateMessageBody, messageBody: body });
 
 window.store = store;
 export default store;
