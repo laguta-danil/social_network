@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import {sendMessageCreator, updateMessageCreator} from "../../redux/dialogs-reducer";
 
 
 const DialogsItem = (props) => {
@@ -37,18 +36,18 @@ const Dialogs = (props) => {
 
 
     // let Data = props.store.getState().dialogsPage
-    let dialogElements = props.Data.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
+    let dialogElements = props.dialogsPage.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
                                                                             ava={dialogs.ava}/>);
-    let messageElements = props.Data.MessageData.map(m => <Message message={m.message} id={m.id}/>);
-    let NewMessageBody = props.Data.newMessageBody;
+    let messageElements = props.dialogsPage.MessageData.map(m => <Message message={m.message} id={m.id}/>);
+    let NewMessageBody = props.dialogsPage.newMessageBody;
 
     let AddChat = () => {
-        props.store.dispatch(sendMessageCreator())
+        props.sendMessage();
     }
 
     let onNewMessageChange = (e) => {
         let body = e.target.value;
-        props.store.dispatch(updateMessageCreator(body))
+        props.updateMessageBody(body);
     }
 
 
