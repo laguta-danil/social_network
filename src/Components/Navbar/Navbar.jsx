@@ -1,7 +1,7 @@
 import React from "react";
 import classes from './Navbar.module.css'
 import {NavLink} from "react-router-dom";
-import Users from "../Settings/Users";
+import Users from "../Users/Users";
 
 const Navbar = () => {
     return (

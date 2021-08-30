@@ -1,48 +1,59 @@
-const updateMessageBody = 'UPDATE-MESSAGE-BODY';
-const sendMessage = 'SEND-MESSAGE';
+const FOLLOW = 'FOLLOW'
+const UNFOLLOW = 'UNFOLLOW'
+const SET_USERS = 'SET_USERS'
 
 let initialState = {
-    DialogsData: [
-        {id: 1, name: 'Dima', ava: 'https://a.d-cd.net/sAAAAgFICuA-960.jpg'},
-        {id: 2, name: 'Andrey', ava: 'https://a.d-cd.net/JIWtnlsJaAePf4IKpNSVlvmm0es-960.jpg'},
-        {id: 3, name: 'Maksym', ava: 'https://a.d-cd.net/aisWO5QJR1_qCfWSVxibSBZ16GY-960.jpg'},
-        {id: 4, name: 'Sveta', ava: 'https://a.d-cd.net/8kS-20So9bGbMhs2Lmr1QMQnPAU-960.jpg'},
-        {id: 5, name: 'Tania', ava: 'https://a.d-cd.net/5QAAAgLq9-A-960.jpg'},
-        {id: 6, name: 'Serhei', ava: 'https://a.d-cd.net/cQAAAgONi-A-960.jpg'}
-    ],
-        MessageData: [
-    {id: 1, message: 'Hi, how old are you?'},
-    {id: 2, message: 'Vasia, pilit brevno'},
-    {id: 3, message: 'Trust im my words!'},
-    {id: 4, message: 'Learning IT kamasutra?'},
-    {id: 5, message: 'I will be programist'},
-    {id: 6, message: 'Javascript '}
-],
-    newMessageBody: ''
+    usersNames: [
+        {userId: 0, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo', followed: false, firstName: 'Serhei', lastName: 'Chyrilov',
+            status: 'I am a Boss', location: { city: 'Urugvai', country: 'Africa'}},
+        {userId: 1, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: false, firstName: 'Ivan', lastName: 'Terlovoi',
+            status: 'I am a Boss too', location: { city: 'Kharkov', country: 'Ukrain'}},
+        {userId: 2, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: false, firstName: 'Taras', lastName: 'Kachanov',
+            status: 'Dayn', location: { city: 'Boston', country: 'USA'}},
+        {userId: 3, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: true, firstName: 'Masha', lastName: 'Morskii',
+            status: 'I am a quin', location: { city: 'Moskov', country: 'Russia'}},
+    ]
+
+
 }
 
-
-const dialogsReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case updateMessageBody:
+        case FOLLOW:
             return {
                 ...state,
-                newMessageBody : action.messageBody
-            };
-        case sendMessage:
-            let body = state.newMessageBody;
+                usersNames: state.usersNames.map(u => {
+                    if (u.id === action.userId) {
+                        return {...u, followed: true}
+                    }
+                    return u;
+                })
+            }
+
+        case UNFOLLOW:
             return {
                 ...state,
-                newMessageBody: '',
-                MessageData: [...state.MessageData, {id: 5, message: body}]
-            };
+                usersNames: state.usersNames.map(u => {
+                    if (u.id === action.userId) {
+                        return {...u, followed: false}
+                    }
+                    return u;
+                })
+            }
+
+        case SET_USERS: {
+            return {...state, usersNames: [...state.usersNames, ...action.usersNames]}
+        }
         default:
-            return state;
+            return (state)
+
     }
+
 }
 
-export const sendMessageCreator = () => ({type: sendMessage});
-export const updateMessageCreator = (body) => ({type: updateMessageBody, messageBody: body});
+export const followAC = (userId) => ({ type: FOLLOW, userId})
+export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId})
+export const setUsers = (usersNames) => ({ type: SET_USERS, usersNames})
 
-export default dialogsReducer;
+export default usersReducer;
