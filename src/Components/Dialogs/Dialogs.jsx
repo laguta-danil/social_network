@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 
-
 const DialogsItem = (props) => {
     return (
         <div className={classes.dialogs}>
@@ -28,28 +27,23 @@ const Ava = (props) => {
     )
 }
 
-
-
 let newDialogElement = React.createRef();
 
 const Dialogs = (props) => {
-
-
     // let Data = props.store.getState().dialogsPage
-    let dialogElements = props.dialogsPage.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} id={dialogs.id}
+    let dialogElements = props.dialogsPage.DialogsData.map(dialogs => <DialogsItem name={dialogs.name} key={dialogs.id} id={dialogs.id}
                                                                             ava={dialogs.ava}/>);
-    let messageElements = props.dialogsPage.MessageData.map(m => <Message message={m.message} id={m.id}/>);
+    let messageElements = props.dialogsPage.MessageData.map(m => <Message message={m.message} key={m.id} id={m.id}/>);
     let NewMessageBody = props.dialogsPage.newMessageBody;
 
     let AddChat = () => {
-        props.sendMessage();
+        props.AddChat();
     }
 
     let onNewMessageChange = (e) => {
         let body = e.target.value;
         props.updateMessageBody(body);
     }
-
 
     return (
         <div className={classes.dialogs}>
