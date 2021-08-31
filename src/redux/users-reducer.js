@@ -4,13 +4,13 @@ const SET_USERS = 'SET_USERS'
 
 let initialState = {
     usersNames: [
-        {userId: 0, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo', followed: false, firstName: 'Serhei', lastName: 'Chyrilov',
+        {userId: 0, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg', followed: false, firstName: 'Serhei', lastName: 'Chyrilov',
             status: 'I am a Boss', location: { city: 'Urugvai', country: 'Africa'}},
-        {userId: 1, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: false, firstName: 'Ivan', lastName: 'Terlovoi',
+        {userId: 1, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: false, firstName: 'Ivan', lastName: 'Terlovoi',
             status: 'I am a Boss too', location: { city: 'Kharkov', country: 'Ukrain'}},
-        {userId: 2, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: false, firstName: 'Taras', lastName: 'Kachanov',
+        {userId: 2, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: false, firstName: 'Taras', lastName: 'Kachanov',
             status: 'Dayn', location: { city: 'Boston', country: 'USA'}},
-        {userId: 3, photoUrl: 'https://lh3.googleusercontent.com/proxy/dprGJFVBWCgQMr9llK3m_U1s34Y6l8-8szuT2YEmsth2Pn4IDKRO9OUyUmCJRHr0jP6NLQGEoGCFNC8f8XMUIjpuejrTaO7nZZ6RVHslnp14AeVZI_10tjo',  followed: true, firstName: 'Masha', lastName: 'Morskii',
+        {userId: 3, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: true, firstName: 'Masha', lastName: 'Morskii',
             status: 'I am a quin', location: { city: 'Moskov', country: 'Russia'}},
     ]
 
