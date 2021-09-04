@@ -1,20 +1,16 @@
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET_USERS'
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
+const SET_USERS_TOTAL_COUNT = 'SET_USERS_TOTAL_COUNT'
+const SET_LOADING = 'SET_LOADING'
 
 let initialState = {
-    usersNames: [
-        {userId: 0, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg', followed: false, firstName: 'Serhei', lastName: 'Chyrilov',
-            status: 'I am a Boss', location: { city: 'Urugvai', country: 'Africa'}},
-        {userId: 1, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: false, firstName: 'Ivan', lastName: 'Terlovoi',
-            status: 'I am a Boss too', location: { city: 'Kharkov', country: 'Ukrain'}},
-        {userId: 2, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: false, firstName: 'Taras', lastName: 'Kachanov',
-            status: 'Dayn', location: { city: 'Boston', country: 'USA'}},
-        {userId: 3, photoUrl: 'http://bm.img.com.ua/nxs/img/prikol/images/large/1/2/308321_879388.jpg',  followed: true, firstName: 'Masha', lastName: 'Morskii',
-            status: 'I am a quin', location: { city: 'Moskov', country: 'Russia'}},
-    ]
-
-
+    users:[],
+    pageSize: 4,
+    totalUserCount: 0,
+    currentPage: 3,
+    isFetching: true,
 }
 
 const usersReducer = (state = initialState, action) => {
@@ -23,7 +19,7 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                usersNames: state.usersNames.map(u => {
+                users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: true}
                     }
@@ -34,7 +30,7 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                usersNames: state.usersNames.map(u => {
+                users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return {...u, followed: false}
                     }
@@ -43,7 +39,16 @@ const usersReducer = (state = initialState, action) => {
             }
 
         case SET_USERS: {
-            return {...state, usersNames: [...state.usersNames, ...action.usersNames]}
+            return {...state, users: action.usersNames}
+        }
+        case SET_CURRENT_PAGE: {
+            return {...state, currentPage: action.currentPage}
+        }
+        case SET_USERS_TOTAL_COUNT: {
+            return {...state, totalUserCount: action.count}
+        }
+        case SET_LOADING: {
+            return {...state, isFetching: action.isFetching}
         }
         default:
             return (state)
@@ -52,8 +57,11 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
-export const followAC = (userId) => ({ type: FOLLOW, userId})
-export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId})
-export const setUsers = (usersNames) => ({ type: SET_USERS, usersNames})
+export const follow = (userId) => ({type: FOLLOW, userId})
+export const unfollow = (userId) => ({type: UNFOLLOW, userId})
+export const setUser = (usersNames) => ({type: SET_USERS, usersNames})
+export const setCurrentPage = (currentPage) => ({type:SET_CURRENT_PAGE, currentPage:currentPage })
+export const setTotalUsersCount = (totalUsersCount) => ({type:SET_USERS_TOTAL_COUNT, count:totalUsersCount })
+export const setLoader = (isFetching) => ({type:SET_LOADING, isFetching})
 
 export default usersReducer;

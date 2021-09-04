@@ -1,29 +1,62 @@
 import React from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {followAC, setUsers, unfollowAC} from "../../redux/users-reducer";
+import {follow, setCurrentPage, setLoader, setTotalUsersCount, setUser, unfollow} from "../../redux/users-reducer";
+import * as axios from "axios";
+import Preloader from "../Preloader/Preloader";
+
+class UsersAPI extends React.Component {
+    componentDidMount() {
+        this.props.setLoader(true)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setLoader(false)
+                this.props.setUser(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+
+    onPageChanged = (pageNumber) => {
+        this.props.setLoader(true)
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setLoader(false)
+                this.props.setUser(response.data.items)
+            })
+    }
+
+    render() {
+        return <>
+            {this.props.isFetching ? <Preloader/> : null}
+            <Users totalUserCount={this.props.totalUserCount}
+                   pageSize={this.props.pageSize}
+                   currentPage={this.props.currentPage}
+                   onPageChanged={this.onPageChanged}
+                   users={this.props.users}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
+            />
+        </>
+
+    }
+}
 
 let mapStateToProps = (state) => {
     return {
-        usersNames: state.usersPage.usersNames
+        users: state.usersPage.users,
+        pageSize: state.usersPage.pageSize,
+        totalUserCount: state.usersPage.totalUserCount,
+        currentPage: state.usersPage.currentPage,
+        isFetching: state.usersPage.isFetching,
     }
 
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (userId) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUser: (userId) => {
-            dispatch(setUsers(Users))
-        }
-    }
 
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Users);
+export default connect(mapStateToProps,
+    {
+        follow, unfollow, setUser,
+        setCurrentPage, setTotalUsersCount, setLoader
+    })
+(UsersAPI)

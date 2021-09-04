@@ -3,3 +3,14 @@
     width: 100px;
 
 }
+
+.selectedPage {
+    color: white;
+    font-size: x-large;
+    padding: 2px;
+
+}
+
+.unselectedPage {
+    padding: 2px;
+}
