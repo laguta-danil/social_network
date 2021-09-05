@@ -1,5 +1,6 @@
 const addPost = 'ADD-POST';
 const updateNewPostText = 'UPDATE-NEW-POST-TEXT';
+const SET_USER_CONTENT = 'SET_USER_CONTENT';
 
 let initialState = {
     postData: [
@@ -7,7 +8,8 @@ let initialState = {
         {id: 1, txt: 'Sekond post', likes: 1312},
         {id: 2, txt: 'Third post', likes: 31},
     ],
-    updateText: 'WHAT IS IT SHIT'
+    updateText: 'WHAT IS IT SHIT',
+    profile: null,
 }
 
 
@@ -33,12 +35,16 @@ const profileReducer = (state = initialState, action) => {
                 updateText: action.newText
             };
         }
+        case SET_USER_CONTENT: {
+            return {...state, profile: action.profile}
+        }
         default:
             return state;
     }
 }
 
-export const addPostActionCreator = () => ({type: addPost})
-export const updateNewPostTextActionCreactor = (Text) => ({type: updateNewPostText, newText: Text});
+export const AddPosts = () => ({type: addPost})
+export const updateText = (Text) => ({type: updateNewPostText, newText: Text});
+export const setUserContent = (profile) => ({type: SET_USER_CONTENT, profile});
 
 export default profileReducer;

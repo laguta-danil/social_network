@@ -1,5 +1,6 @@
 import React from "react";
 import './ProfileInfo.css'
+import Preloader from "../../../Preloader/Preloader";
 
 
 const ProfileInfo = (props) => {
@@ -14,6 +15,10 @@ const ProfileInfo = (props) => {
         props.updateText(Text);
     }
 
+    if (!props.profile) {
+        return <Preloader />
+    }
+
     return (
         <div>
             <div>
@@ -21,6 +26,9 @@ const ProfileInfo = (props) => {
             </div>
             <div className='totalp'>
                 ava + decription
+                <div>
+                    <img src={props.profile.photos.large}/>
+                </div>
                 <div className='totalp'>
                     My posts
                 </div>
