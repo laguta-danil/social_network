@@ -6,3 +6,8 @@
 .header img {
     width: 120px;
 }
+
+.loginPosition {
+    float: right;
+    color: white;
+}

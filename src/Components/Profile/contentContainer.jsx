@@ -2,18 +2,21 @@ import React from "react";
 import {connect} from "react-redux";
 import Content from "./Content";
 import {
-    addPostActionCreator, AddPosts,
+    AddPosts,
     setUserContent,
-    updateNewPostTextActionCreactor,
     updateText
 } from "../../redux/profile-reducer";
 import * as axios from "axios";
+import {withRouter} from "react-router";
 
 
-class contentContainer extends React.Component {
-
+class ContentContainer extends React.Component {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/2`)
+        let userId = this.props.match.params.userId
+        if (!userId) {
+            userId = 2;
+        }
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
                 this.props.setUserContent(response.data)
             })
@@ -37,11 +40,12 @@ const mapStateToProps = (state) => {
     }
 }
 
+let WithUrlDataContainer =  withRouter(ContentContainer)
 
-let ContentContainer = connect(mapStateToProps, {
+export default ContentContainer = connect(mapStateToProps, {
     updateText,
     AddPosts,
     setUserContent
-})(contentContainer)
+})(WithUrlDataContainer)
 
-export default ContentContainer;
+
