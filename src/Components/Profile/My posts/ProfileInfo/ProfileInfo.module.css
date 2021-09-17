@@ -1,0 +1,48 @@
+.totalp {
+    padding: 15px;
+}
+
+.userInfo {
+    color: black;
+}
+
+.statusJob {
+    height: 50px;
+    width: 50px;
+}
+
+.wrapper {
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "b b"
+    "u tB"
+    "mP mP";
+}
+
+.banner {
+    grid-area: b;
+}
+.imgb {
+    width: 1481px;
+    height: 250px;
+}
+
+.userAva {
+    grid-area: u;
+    padding: 10px;
+}
+
+.myPosts {
+    grid-area: mP;
+}
+
+.textBlock {
+    grid-area: tB;
+}
+.textArea {
+    width: 735px;
+    height: 150px;
+}

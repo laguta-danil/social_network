@@ -1,29 +1,22 @@
 import React from "react";
 import {connect} from "react-redux";
 import Users from "./Users";
-import {follow, setCurrentPage, setLoader, setTotalUsersCount, setUser, unfollow} from "../../redux/users-reducer";
-import * as axios from "axios";
+import {
+    follow, getUsers,
+    setCurrentPage,
+    toggleFollowingProgress,
+    unfollow
+} from "../../redux/users-reducer";
 import Preloader from "../Preloader/Preloader";
+
 
 class UsersAPI extends React.Component {
     componentDidMount() {
-        this.props.setLoader(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setLoader(false)
-                this.props.setUser(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize);
     }
 
     onPageChanged = (pageNumber) => {
-        this.props.setLoader(true)
-        this.props.setCurrentPage(pageNumber)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-            .then(response => {
-                this.props.setLoader(false)
-                this.props.setUser(response.data.items)
-            })
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -36,6 +29,7 @@ class UsersAPI extends React.Component {
                    users={this.props.users}
                    follow={this.props.follow}
                    unfollow={this.props.unfollow}
+                   followingInProgress={this.props.followingInProgress}
             />
         </>
 
@@ -49,6 +43,7 @@ let mapStateToProps = (state) => {
         totalUserCount: state.usersPage.totalUserCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
+        followingInProgress: state.usersPage.followingInProgress,
     }
 
 }
@@ -56,7 +51,7 @@ let mapStateToProps = (state) => {
 
 export default connect(mapStateToProps,
     {
-        follow, unfollow, setUser,
-        setCurrentPage, setTotalUsersCount, setLoader
+        follow, unfollow, setCurrentPage,
+        toggleFollowingProgress, getUsers,
     })
 (UsersAPI)
