@@ -3,12 +3,10 @@ import {connect} from "react-redux";
 import Content from "./Content";
 import {
     AddPosts,
-    setUserContent,
-    updateText
+    updateText,
+    getUserProfile
 } from "../../redux/profile-reducer";
-import * as axios from "axios";
 import {withRouter} from "react-router";
-import {userAPI} from "../../API/Api";
 
 
 class ContentContainer extends React.Component {
@@ -17,10 +15,7 @@ class ContentContainer extends React.Component {
         if (!userId) {
             userId = 2;
         }
-        userAPI.getProfile(userId)
-            .then(response => {
-                this.props.setUserContent(response.data)
-            })
+        this.props.getUserProfile(userId)
     }
 
     render() {
@@ -38,6 +33,7 @@ const mapStateToProps = (state) => {
         profilePage: state.profilePage,
         updateText: state.profilePage.updateText,
         profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth
     }
 }
 
@@ -45,8 +41,7 @@ let WithUrlDataContainer =  withRouter(ContentContainer)
 
 export default ContentContainer = connect(mapStateToProps, {
     updateText,
-    AddPosts,
-    setUserContent
+    AddPosts, getUserProfile
 })(WithUrlDataContainer)
 
 
