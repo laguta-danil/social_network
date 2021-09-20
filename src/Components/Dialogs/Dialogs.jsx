@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./Dialogs.module.css";
 import {NavLink} from "react-router-dom";
-import {Redirect} from "react-router";
 
 const DialogsItem = (props) => {
     return (
@@ -46,8 +45,6 @@ const Dialogs = (props) => {
         props.updateMessageBody(body);
     }
 
-    if (!props.isAuth) return <Redirect to={'/login'} />
-
     return (
         <div className={classes.dialogs}>
             <div className={classes.mess}>
@@ -64,4 +61,6 @@ const Dialogs = (props) => {
         </div>
     )
 }
+
+
 export default Dialogs;

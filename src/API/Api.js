@@ -21,7 +21,8 @@ export const userAPI = {
         return instance.post(`follow/${id}`, {}, {})  // может быть ошибка с третим обьектом
     },
     getProfile(userId){
-        return instance.get(`profile/` + userId)
+        console.warn("Obsoled method, please use prolifeAPI obj!")
+        return profileAPI.getProfile(userId)
     }
 }
 
@@ -29,5 +30,18 @@ export const authAPI = {
     me (){
         return instance.get(`/auth/me`)
     }
+
+}
+
+export const profileAPI = {
+    getProfile (userId){
+        return instance.get(`profile/` + userId)
+    },
+    getStatus (userId) {
+        return instance.get('profile/status/' + userId)
+    },
+    updateStatus (status) {
+        return instance.put('profile/status/', {status: status})
+    },
 
 }

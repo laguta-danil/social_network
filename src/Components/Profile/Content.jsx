@@ -10,7 +10,8 @@ const Content = (props) => {
     return (
         <div className={classes.t}>
             <ProfileInfo state = {props.state} AddPosts={props.AddPosts}
-                         updateText={props.updateText} profile={props.profile}/>
+                         updateText={props.updateText} profile={props.profile}
+                         status={props.status} updateStatus={props.updateStatus}/>
             <My_posts profilePage={props.profilePage}/>
         </div>
     )
